@@ -30,14 +30,13 @@ def fetch_url(url, first_n=100):
     res = requests.get(url)
     return res.content[:first_n] if first_n else res.content
 
-
-print(fetch_url("https://www.google.com"))
-print(fetch_url("https://www.google.com/maps"))
-print(fetch_url("https://www.youtube.com"))
-print(fetch_url("https://www.google.com/maps"))
-print(fetch_url("https://www.google.com/maps"))
-print(fetch_url("https://www.youtube.com"))
-print(fetch_url("https://github.com"))
-
+if __name__ == "__main__":
+    print(fetch_url("https://www.google.com"))
+    print(fetch_url("https://www.google.com/maps"))
+    print(fetch_url("https://www.youtube.com"))
+    print(fetch_url("https://www.google.com/maps"))
+    print(fetch_url("https://www.google.com/maps"))
+    print(fetch_url("https://www.youtube.com"))
+    print(fetch_url("https://github.com"))
 
 
