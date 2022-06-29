@@ -1,6 +1,7 @@
 import functools
 import requests
 
+
 def cache(max_limit=3):
     def internal(f):
         @functools.wraps(f)
@@ -20,9 +21,12 @@ def cache(max_limit=3):
             deco._cache[cache_key]["rez"] = result
             print(deco._cache)
             return result
+
         deco._cache = {}
         return deco
+
     return internal
+
 
 @cache()
 def fetch_url(url, first_n=100):
@@ -31,13 +35,16 @@ def fetch_url(url, first_n=100):
     return res.content[:first_n] if first_n else res.content
 
 
-print(fetch_url("https://www.google.com"))
-print(fetch_url("https://www.google.com/maps"))
-print(fetch_url("https://www.youtube.com"))
-print(fetch_url("https://www.google.com/maps"))
-print(fetch_url("https://www.google.com/maps"))
-print(fetch_url("https://www.youtube.com"))
-print(fetch_url("https://github.com"))
-
-
-
+if __name__ == '__main__':
+    # Без цієї конструкції імпортований модуль виконується одразу при імпорті
+    # У більшості випадків треба використовувати цю конструкцію та викликати
+    # об'явлені функції у ній.
+    #
+    # У PyCharm є шорткат для цього. Просто пишеш "main" та Enter
+    print(fetch_url("https://www.google.com"))
+    print(fetch_url("https://www.google.com/maps"))
+    print(fetch_url("https://www.youtube.com"))
+    print(fetch_url("https://www.google.com/maps"))
+    print(fetch_url("https://www.google.com/maps"))
+    print(fetch_url("https://www.youtube.com"))
+    print(fetch_url("https://github.com"))
