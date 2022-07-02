@@ -1,8 +1,10 @@
-from flask import Flask
-from random import choice, choices, shuffle, randint
 import string
+from random import choice, choices, shuffle, randint
+
+from flask import Flask
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def generate_password():
