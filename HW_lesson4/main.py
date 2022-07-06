@@ -99,4 +99,5 @@ def get_bitcoin_value(currency_code, count):
 
 
 if __name__ == "__main__":
+
     app.run()
