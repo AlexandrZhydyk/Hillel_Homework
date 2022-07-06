@@ -57,7 +57,7 @@ def generate_students(count):
     # students_table = pd.DataFrame(columns_data).to_html()
     # return f"<p>{students_table}</p>"
 
-    #2 option. Creating csv file with fake, reading csv to turn it into html
+    # 2 option. Creating csv file with fake data,reading csv to turn it into html
     with open("students_csv.csv", "w") as file:
         file.write(pd.DataFrame(columns_data).to_csv(index=False))
 
