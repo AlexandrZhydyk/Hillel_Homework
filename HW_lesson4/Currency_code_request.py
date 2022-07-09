@@ -9,7 +9,7 @@ def get_currency_code_arr():
     dict_response = json.loads(response)
     currency_arr = []
     for currency in dict_response['data']:
-        currency_code_arr.append(currency["code"])
+        currency_arr_code.append(currency["code"])
     return currency_arr
 
 
