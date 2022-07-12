@@ -35,7 +35,7 @@ def error_handler(error):
 @app.route('/sales')
 @use_kwargs(
     {
-        "country": fields.Str(required=True),
+        "country": fields.Str(load_default=None),
     },
     location="query"
 )
@@ -50,15 +50,19 @@ def order_price(country):
 
     print(country)
     # Input verification
+    if country == "none":
+        query = "SELECT BillingCountry AS Country, ROUND(SUM(UnitPrice * Quantity), 2) AS Sales " \
+                "FROM invoice_items JOIN invoices ON invoice_items.InvoiceId=invoices.InvoiceId GROUP BY Country"
+        return response_to_html_view(query)
 
     if country in data_available_countries:
         query = f"SELECT BillingCountry AS Country, ROUND(SUM(UnitPrice * Quantity), 2) AS Sales" \
                 f" FROM invoice_items JOIN invoices ON invoice_items.InvoiceId=invoices.InvoiceId GROUP BY Country HAVING Country='{data_available_countries[country]}'"
-        return response_to_html_view(query)
     else:
-        query = "SELECT BillingCountry AS Country, ROUND(SUM(UnitPrice * Quantity), 2) AS Sales " \
-                "FROM invoice_items JOIN invoices ON invoice_items.InvoiceId=invoices.InvoiceId GROUP BY Country"
-        return response_to_html_view(query)
+        formatted_available_countries = [available_country[0] for available_country in available_countries]
+        raise abort(400, messages=[f'Wrong country name. Please check available countries: {formatted_available_countries}'])
+
+    return response_to_html_view(query)
 
 
 
@@ -66,13 +70,11 @@ def order_price(country):
 @app.route('/track_info')
 @use_kwargs(
     {
-        "track_id": fields.Int(load_default=None),
+        "track_id": fields.Int(required=True),
     },
     location="query"
 )
 def get_all_info_about_track(track_id):
-    if not track_id:
-        raise abort(400, messages=[f'Wrong track id. Please enter track id, Ex.: 1 or 2 ...'])
     query = "SELECT * FROM tracks AS resume_table " \
                 "LEFT JOIN  playlist_track USING (TrackId) " \
                 "LEFT JOIN albums USING (AlbumId) " \
