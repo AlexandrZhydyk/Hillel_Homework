@@ -40,8 +40,11 @@ def error_handler(error):
     location="query"
 )
 def order_price(country):
+    if country is None:
+        country = ""
+    else:
+        country = str(country).lower()
     # Make input key insensitive
-    country = str(country).lower()
     query_available_country = "SELECT DISTINCT BillingCountry AS Country FROM invoices "
     available_countries = query_handler(query_available_country)
     data_available_countries = {}
@@ -50,7 +53,7 @@ def order_price(country):
 
     print(country)
     # Input verification
-    if country == "none":
+    if not country:
         query = "SELECT BillingCountry AS Country, ROUND(SUM(UnitPrice * Quantity), 2) AS Sales " \
                 "FROM invoice_items JOIN invoices ON invoice_items.InvoiceId=invoices.InvoiceId GROUP BY Country"
         return response_to_html_view(query)
