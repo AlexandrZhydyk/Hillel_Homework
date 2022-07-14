@@ -1,18 +1,16 @@
 class Circle:
 
-    X = 10
-    Y = 10
-    radius = 10
-
-    def __init__(self, point):
+    def __init__(self, point, x, y, radius):
         self.point = point
+        self.x = x
+        self.y = y
+        self.radius = radius
 
     def contains(self):
-        distance = ((self.X - self.point.x)**2 + (self.Y - self.point.y) **2)**(1/2)
+        distance = ((self.x - self.point.x)**2 + (self.y - self.point.y) **2)**(1/2)
         if distance < self.radius:
             return True
-        else:
-            return False
+        return False
 
 
 class Point:
@@ -22,5 +20,5 @@ class Point:
 
 
 point_1 = Point(15, 5)
-circle_1 = Circle(point_1)
+circle_1 = Circle(point_1, 5, 10, 10)
 print(circle_1.contains())
