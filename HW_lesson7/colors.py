@@ -1,0 +1,11 @@
+class bcolors:
+    grey = '\033[90m'
+    red = '\033[91m'
+    green = '\033[92m'
+    yellow = '\033[93m'
+    blue = '\033[94m'
+    pink = '\033[95m'
+    turquoise = '\033[96m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
